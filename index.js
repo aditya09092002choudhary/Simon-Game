@@ -1,4 +1,3 @@
-
 var buttonColours = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
@@ -7,7 +6,7 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(".start-btn").click(function() {
+$(".start-btn").click(function () {
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
@@ -16,7 +15,7 @@ $(".start-btn").click(function() {
   }
 });
 
-$(".btn").click(function() {
+$(".btn").click(function () {
 
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
@@ -25,46 +24,48 @@ $(".btn").click(function() {
   animatePress(userChosenColour);
 
   //2. Call checkAnswer() after a user has clicked and chosen their answer, passing in the index of the last answer in the user's sequence.
-  checkAnswer(userClickedPattern.length-1);
+  checkAnswer(userClickedPattern.length - 1);
 });
 
 
 //1. Create a new function called checkAnswer(), it should take one input with the name currentLevel
 function checkAnswer(currentLevel) {
 
-    //3. Write an if statement inside checkAnswer() to check if the most recent user answer is the same as the game pattern. If so then log "success", otherwise log "wrong".
-    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+  //3. Write an if statement inside checkAnswer() to check if the most recent user answer is the same as the game pattern. If so then log "success", otherwise log "wrong".
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
 
-      console.log("success");
+    console.log("success");
 
-      //4. If the user got the most recent answer right in step 3, then check that they have finished their sequence with another if statement.
-      if (userClickedPattern.length === gamePattern.length){
+    //4. If the user got the most recent answer right in step 3, then check that they have finished their sequence with another if statement.
+    if (userClickedPattern.length === gamePattern.length) {
 
-        //5. Call nextSequence() after a 1000 millisecond delay.
-        setTimeout(function () {
-          nextSequence();
-        }, 1000);
+      //5. Call nextSequence() after a 1000 millisecond delay.
+      setTimeout(function () {
+        nextSequence();
+      }, 1000);
 
-      }
-s
-    } else {
-        startOver();
-      console.log("wrong");
-      playSound("wrong");
-
-      $("body").addClass("game-over");
-      setTimeout(function (){
-        $("body").removeClass("game-over");
-      },200);
-      $("h1").text( "Game Over, Press Restart to Play Again");
-      $(".restart-btn").click(function() {
-        if (!started) {
-          $("#level-title").text("Level " + level);
-          nextSequence();
-          started = true;
-        }
-      });
     }
+    s
+  } else {
+    startOver();
+    console.log("wrong");
+    playSound("wrong");
+
+    $("body").addClass("game-over");
+    setTimeout(function () {
+      $("body").removeClass("game-over");
+    }, 200);
+    $("h1").text("Game Over, Press Restart to Play Again");
+    $(".restart-btn").removeClass("remove");
+    $(".restart-btn").click(function () {
+      if (!started) {
+        $(".restart-btn").addClass("remove");
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
+      }
+    });
+  }
 
 }
 
@@ -98,8 +99,8 @@ function animatePress(currentColor) {
   }, 100);
 }
 
-function startOver () {
-    level=0;
-    started=false;
-    gamePattern=[];
+function startOver() {
+  level = 0;
+  started = false;
+  gamePattern = [];
 }
